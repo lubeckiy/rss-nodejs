@@ -30,11 +30,15 @@ try {
             rl.question(promt, (input) => {
                 const inputArray = input.split(' ')
                 const inputCommand = inputArray[0]
-                const inputParams = inputArray.slice(1)
+                const inputParams = inputArray.slice(1).filter( param => param !== '')
+
 
                 if (validateCommand(inputCommand, inputParams, userName)) {
                     const command = Commands.find( command => command.name === inputCommand)
-                    command.action(inputParams, userName)
+                    command.paramNumber === inputParams.length ? 
+                    command.action(inputParams, userName) :
+                    printMessage('Error', 
+                            `No required parametrs provided\n    Required: ${command.paramNumber}\n    Provided: ${inputParams.length}`)
                 } else 
                 printMessage('message', `The command received:  ${input}\n`)
 
