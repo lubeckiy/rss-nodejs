@@ -16,3 +16,17 @@ npm run start -- --username=your_username
 ```
 
 Enjoy!
+
+----
+
+## __Additional ommands:__
+
+# clear
+
+Clear terminal
+
+
+
+#### **parseConfig.png** -  результат тестирования функции парсинга шифра
+
+![parseConfig.png](parseConfig.png)
