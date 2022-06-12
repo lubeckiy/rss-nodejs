@@ -8,8 +8,11 @@ All tasks have been done.
  
 -----------
 ## __How to start__
-``
+
+```
+
 npm run start -- --username=your_username
 
 ```
+
 Enjoy!
