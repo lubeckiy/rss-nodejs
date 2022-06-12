@@ -1,20 +1,19 @@
 import readline from 'readline'
 import { getUserName } from './lib/getUserName.js'
-import { printMessage, clearTerminal } from './lib/message.js'
+import { printMessage, clearTerminal, currentDir } from './lib/message.js'
 import { validateCommand } from './lib/validateCommand.js'
 import { Commands } from './lib/commands.js'
 
 
 Error.stackTraceLimit = 0
 const args = process.argv.slice(2)
-
 const { userName, errorMessage } = getUserName(args)
 
 try {
     if (userName)  {
         clearTerminal()
         printMessage('message', `Welcome to the File Manager, ${userName}`)
-        printMessage('message', `You are currently in: ${process.cwd()}`)
+        printMessage('message', `You are currently in: ${currentDir().path}`)
 
         const rl = readline.createInterface({
             input: process.stdin, 
@@ -42,11 +41,11 @@ try {
                 } else 
                 printMessage('message', `The command received:  ${input}\n`)
 
-                commandLine(promt)
+                commandLine(`${currentDir().promt} > `)
             })
         }
 
-        commandLine('> ')
+        commandLine(`${currentDir().promt} > `)
 
     } else {
         throw Error(errorMessage)
