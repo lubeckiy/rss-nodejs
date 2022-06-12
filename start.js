@@ -1,7 +1,9 @@
+import readline from 'readline'
 import { getUserName } from './lib/getUserName.js'
 import { printMessage, clearTerminal } from './lib/message.js'
 import { validateCommand } from './lib/validateCommand.js'
-import readline from 'readline'
+import { Commands } from './lib/commands.js'
+
 
 Error.stackTraceLimit = 0
 const args = process.argv.slice(2)
@@ -25,9 +27,17 @@ try {
         });
 
         function commandLine(promt) {
-            rl.question(promt, (command) => {
-                validateCommand(command, userName)
-                rl.write(`The command received:  ${command}\n`)        
+            rl.question(promt, (input) => {
+                const inputArray = input.split(' ')
+                const inputCommand = inputArray[0]
+                const inputParams = inputArray.slice(1)
+
+                if (validateCommand(inputCommand, inputParams, userName)) {
+                    const command = Commands.find( command => command.name === inputCommand)
+                    command.action(inputParams, userName)
+                } else 
+                printMessage('message', `The command received:  ${input}\n`)
+
                 commandLine(promt)
             })
         }
