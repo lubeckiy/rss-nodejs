@@ -3,7 +3,9 @@ import { getUserName } from './lib/getUserName.js'
 import { printMessage, clearTerminal, currentDir } from './lib/message.js'
 import { validateCommand } from './lib/validateCommand.js'
 import { Commands } from './lib/commands.js'
-
+import * as os from 'os'
+const { homedir } = os.userInfo()
+process.chdir(homedir)
 
 Error.stackTraceLimit = 0
 const args = process.argv.slice(2)
