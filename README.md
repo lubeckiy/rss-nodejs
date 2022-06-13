@@ -24,9 +24,3 @@ Enjoy!
 # clear
 
 Clear terminal
-
-
-
-#### **parseConfig.png** -  результат тестирования функции парсинга шифра
-
-![parseConfig.png](parseConfig.png)
