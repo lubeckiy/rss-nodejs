@@ -2,6 +2,7 @@ import * as http from 'http'
 import {} from 'dotenv/config'
 import validatePath from './lib/validatePath.js'
 import * as lib from './lib/lib.js'
+import { getHandler } from './handlers/getHandler.js'
 
 const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || 'http://localhost'
@@ -35,25 +36,23 @@ const server = http.createServer((request, response) =>
                          })
                   } else {
                         serverURL.pathname = path.validated
+                        const router = {
+                              'GET/api/users': getHandler,
+/*                               'POST/api/users': postHandler,
+                              'PUT/api/users': putHandler,
+                              'DELETE/api/users': deleteHandler,
+                              'default': noResponse */
+                          }
+                        const handler = router[request.method + serverURL.pathname] || router['default']
 
-                        console.log(path.validated)
-                        console.log(path.id)
+                        console.log('handler', handler)
 
-/*                         const router = {
-                              'GET/api/users': handleGETrequest,
-                              'POST/api/users': handlePOSTrequest,
-                              'PUT/api/users': handlePUTrequest,
-                              'DELETE/api/users': handleDELETErequest,
-                              'default': noResponse
-                          } */
+                        const resault = handler(path.id)
+                        stCode = resault.stCode
+                        ctType = resault.ctType
+                        body = resault.body
 
-                        console.log(request.method + serverURL.pathname)
 
-                        stCode = lib.statusCode.OK
-                        ctType = lib.contentType.json
-                        body = JSON.stringify({
-                              pathname,
-                         })
                   }
                   response.writeHead(stCode, ctType)
                   response.write(body)
