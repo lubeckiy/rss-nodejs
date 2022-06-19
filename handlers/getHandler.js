@@ -11,16 +11,22 @@ export const getHandler = ( request, response, serverURL) =>{
       try{
             if (id) {
                   const user = usersDB.find(user => user.id === id)
-                  stCode = user ? lib.statusCode.OK : lib.statusCode.NotFound
-                  body = user
+
+                  lib.sendResponse(
+                        response,
+                        user ? lib.statusCode.OK : lib.statusCode.NotFound, 
+                        user)
             } else {
-                  stCode = lib.statusCode.OK
-                  body = usersDB
+                  lib.sendResponse(
+                        response,
+                        lib.statusCode.OK, 
+                        usersDB)
             }
       } catch(error){
-            stCode = lib.statusCode.InternalServerError
-            body = JSON.stringify(error)
-      } finally {
-            return { stCode, ctType, body}
+            lib.sendResponse(
+                  response,
+                  lib.statusCode.InternalServerError, 
+                  JSON.stringify(error))
+
       }
 }
