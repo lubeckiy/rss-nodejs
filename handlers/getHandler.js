@@ -3,9 +3,6 @@ import * as lib from "../lib/lib.js"
 import url from 'node:url'
 
 export const getHandler = ( request, response, serverURL) =>{
-      let stCode
-      const ctType = lib.contentType.json
-      let body
       const id = request.url.split('/')[3] ? request.url.split('/')[3] : null
  
       try{

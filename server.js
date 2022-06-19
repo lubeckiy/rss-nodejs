@@ -4,6 +4,7 @@ import validatePath from './lib/validatePath.js'
 import * as lib from './lib/lib.js'
 import { getHandler } from './handlers/getHandler.js'
 import { postHandler } from './handlers/postHandler.js'
+import { deleteHandler } from './handlers/deleteHandler.js'
 
 const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || 'http://localhost'
@@ -40,9 +41,9 @@ const server = http.createServer((request, response) =>
                         const router = {
                               'GET/api/users': getHandler,
                               'POST/api/users': postHandler,
-/*                               'PUT/api/users': putHandler,
+/*                               'PUT/api/users': putHandler, */
                               'DELETE/api/users': deleteHandler,
-                              'default': noResponse */
+                           /*   'default': noResponse */
                           }
                         const handler = router[request.method + serverURL.pathname] || router['default']
                         handler(request, response, serverURL)

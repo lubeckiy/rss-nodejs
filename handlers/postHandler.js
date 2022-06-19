@@ -3,10 +3,9 @@ import * as lib from "../lib/lib.js"
 import { v4 as uuidv4 } from 'uuid'
 
 export const postHandler = ( request, response, serverURL ) =>{
-      var stCode
-      var ctType = lib.contentType.json
-      var body = ''
       const id = request.url.split('/')[3] ? request.url.split('/')[3] : null
+      let stCode
+      let body = ''
       
             if (id) {
                   stCode = lib.statusCode.BadRequest
